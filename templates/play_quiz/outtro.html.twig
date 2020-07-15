@@ -1,0 +1,28 @@
+{% extends 'play_quiz/base.html.twig' %}
+
+{% block title %}Welcome !{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/play.css') }}">
+<style>
+    body {
+        background-image: url("{{ asset('uploads/picture/' ~ quiz.picture) }}");
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block body %}
+<div class="container playQuizFrame">
+    <div class="jumbotron">
+        <h1 class="display-3">{{ quiz.label }}</h1>
+        <hr class="my-4">
+        <h4>{{ score }} / {{ maxScore }} </h4>
+        <hr class="my-4">
+        <h4>{{ comment }}</h4>
+        <hr class="my-4">
+        <a href="{{ path('home_page') }}" class="btn btn-primary btn-lg btn-block ">
+            <h3>Return to the quiz's list ...</h3>
+        </a>
+    </div>
+</div>
+{% endblock %}

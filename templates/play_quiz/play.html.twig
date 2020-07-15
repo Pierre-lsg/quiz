@@ -1,0 +1,31 @@
+{% extends 'play_quiz/base.html.twig' %}
+
+{% block title %}Welcome !{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/play.css') }}">
+<style>
+    body {
+        background-image: url("{{ asset('uploads/picture/' ~ question.picture) }}");
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block body %}
+<div class="container playQuizFrame">
+    <div class="jumbotron">
+        <form action="{{ path('play_quiz', {'idQuiz': quizId}) }}" method="POST">
+            <h2>{{ question.label }}</h2>
+            <hr class="my-4">
+            {% for answer in answers %}
+                <h3>
+                    <input type="radio" id="{{ answer.id }}" name="answerId" value="{{ answer.id }}" required>
+                    <label for="{{ answer.id }}">{{ answer.label }}</label>
+                </h3>
+            {% endfor %}
+            <hr class="my-4">
+            <button type="submit" class="btn btn-primary btn-lg btn-block"><h4>Validate</h4></button>
+        </form>
+    </div>
+</div>
+{% endblock %}

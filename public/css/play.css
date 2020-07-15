@@ -1,0 +1,20 @@
+body {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+}
+
+.playQuizFrame {
+    background-color: white;
+    opacity: 0.8;
+    position: fixed;
+    top: 20%;
+}
+
+.indexQuizFrame {
+    background-color: white;
+    opacity: 0.8;
+    position: fixed;
+    top: 10%;
+}
+

@@ -1,0 +1,32 @@
+{% extends 'play_quiz/base.html.twig' %}
+
+{% block title %}Welcome !{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/play.css') }}">
+<style>
+    body {
+        background-image: url("{{ asset('uploads/picture/' ~ quiz.picture) }}");
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block body %}
+<div class="container playQuizFrame">
+    <div class="jumbotron">
+        <h1 class="display-3">{{ quiz.label }}</h1>
+        <hr class="my-4">
+        <h4>{{ quiz.description }}</h4>
+        <hr class="my-4">
+        <form action="{{ path('intro_quiz', {'idQuiz': quiz.id}) }}" method="POST">
+            <div class="form-group">
+                <label for="email">Enter your email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+                <label for="nickname" >Enter your nickname:</label>
+                <input type="nickname" id="nickname" name="nickname" class="form-control">
+            </div>
+        <h3><button type="submit" class="btn btn-primary btn-lg btn-block">Start ...</button></h3>            
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Question Lists {% if quizId %} : Quizz #{{ quizId }}{% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("css/jquery.dataTables.min.css") }}>
+    <script src={{ asset("js/jquery.min.js") }}></script>
+    <script src={{ asset("js/jquery.dataTables.min.js") }}></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Questions lists{% if quizLabel %} : {{ quizLabel }}{% endif %}</h1>
+
+    <table class="table" id="tableQuestion">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th>Picture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for question in questions %}
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.label }}</td>
+                <td>{{ question.picture }}</td>
+                <td>
+                    {% if quizId %}
+                    <a href="{{ path('quizQuestion_show', {'id': question.id, 'idQuiz': quizId }) }}">show</a>
+                    <a href="{{ path('quizQuestion_edit', {'id': question.id, 'idQuiz': quizId }) }}">edit</a>
+                    <a href="{{ path('quizQuestion_answers', {'id': question.id, 'idQuiz': quizId }) }}">answers</a>
+                    {% else %}
+                    <a href="{{ path('question_show', {'id': question.id }) }}">show</a>
+                    <a href="{{ path('question_edit', {'id': question.id }) }}">edit</a>
+                    {% endif %} 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if quizId %}
+    <a href="{{ path('quizQuestion_new', {'idQuiz': quizId }) }}">Create new</a>
+    {% else %}
+    <a href="{{ path('question_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready( function() {
+        $("#tableQuestion").DataTable({
+            "stripeClasses": [ 'table-primary', 'table-secondary' ],
+            "language": {
+                "url": "/translation/datatable.en_EN.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}

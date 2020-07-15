@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Answer list {% if questionId %} : Question #{{ questionId }}{% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("css/jquery.dataTables.min.css") }}>
+    <script src={{ asset("js/jquery.min.js") }}></script>
+    <script src={{ asset("js/jquery.dataTables.min.js") }}></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Answer index : {% if questionLabel %}{{ questionLabel }}{% endif %}</h1>
+
+    <table class="table" id="tableAnswer">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th>Value</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for answer in answers %}
+            <tr>
+                <td>{{ answer.id }}</td>
+                <td>{{ answer.label }}</td>
+                <td>{{ answer.value }}</td>
+                <td>
+                    {% if questionId %}
+                    <a href="{{ path('questionAnswer_show', {'id': answer.id, 'idQuiz': quizId, 'idQuestion': questionId}) }}">show</a>
+                    <a href="{{ path('questionAnswer_edit', {'id': answer.id, 'idQuiz': quizId, 'idQuestion': questionId}) }}">edit</a>
+                    {% else %}
+                    <a href="{{ path('answer_show', {'id': answer.id}) }}">show</a>
+                    <a href="{{ path('answer_edit', {'id': answer.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if questionId %}
+    <a href="{{ path('questionAnswer_new', {'idQuiz': quizId, 'idQuestion': questionId}) }}">Create new</a>
+    {% else %}
+    <a href="{{ path('answer_new') }}">Create new</a>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready( function() {
+        $("#tableAnswer").DataTable({
+            "stripeClasses": [ 'table-primary', 'table-secondary' ],
+            "language": {
+                "url": "/translation/datatable.en_EN.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}

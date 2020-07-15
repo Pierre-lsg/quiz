@@ -1,0 +1,14 @@
+{{ form_start(form) }} 
+    {% if questionId %}
+    {{ form_widget(form.question, {'attr': {'disabled': 'disabled', 'hidden': 'hidden'}}) }}
+    <h5>{{ answer.question }}</h5>
+    {% endif %}
+
+    {{ form_row(form.label, {'label': 'Label', 'attr': {'placeholder': 'label', 'autofocus': true}}) }}
+    {{ form_row(form.value, {'label': 'Value', 'attr': {'placeholder': 'value'}}) }}
+
+    {% if not questionId %}
+    {{ form_row(form.question) }}
+    {% endif %}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

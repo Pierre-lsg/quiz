@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration !{% endblock %}
+
+{% block body %}
+<table>
+    <tr>
+        <td>
+            <h1>Quiz management</h1>
+            <h2><a class="nav-link" href="{{ path('quiz_index') }}">All quiz</a></h2>
+            <h2><a class="nav-link" href="{{ path('question_index') }}">All questions</a></h2>
+            <h2><a class="nav-link" href="{{ path('answer_index') }}">All answer</a></h2>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+{% endblock %}

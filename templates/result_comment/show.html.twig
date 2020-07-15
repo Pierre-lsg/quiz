@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResultComment{% endblock %}
+
+{% block body %}
+    <h1>ResultComment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ result_comment.id }}</td>
+            </tr>
+            <tr>
+                <th>LowerBound</th>
+                <td>{{ result_comment.lowerBound }}</td>
+            </tr>
+            <tr>
+                <th>UpperBound</th>
+                <td>{{ result_comment.upperBound }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ result_comment.comment }}</td>
+            </tr>
+            <tr>
+                <th>Reward</th>
+                <td>{{ result_comment.reward }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('result_comment_index') }}">back to list</a>
+
+    <a href="{{ path('result_comment_edit', {'id': result_comment.id}) }}">edit</a>
+
+    {{ include('result_comment/_delete_form.html.twig') }}
+{% endblock %}

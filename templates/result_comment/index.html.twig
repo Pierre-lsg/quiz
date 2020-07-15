@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResultComment index{% endblock %}
+
+{% block body %}
+    <h1>ResultComment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>LowerBound</th>
+                <th>UpperBound</th>
+                <th>Comment</th>
+                <th>Reward</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for result_comment in result_comments %}
+            <tr>
+                <td>{{ result_comment.id }}</td>
+                <td>{{ result_comment.lowerBound }}</td>
+                <td>{{ result_comment.upperBound }}</td>
+                <td>{{ result_comment.comment }}</td>
+                <td>{{ result_comment.reward }}</td>
+                <td>
+                    <a href="{{ path('result_comment_show', {'id': result_comment.id}) }}">show</a>
+                    <a href="{{ path('result_comment_edit', {'id': result_comment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('result_comment_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,42 @@
+List of application's elements 
+    ++ a quiz :
+        label : string
+        description : text
+        picture : string
+        questions : @question
+        resultComments : @resultComment
+        creator: text #default : name of the creator. Not linked
+
+    ++ a question :
+        label : text
+        picture : string
+        answers : @answer
+
+    ++ an answer :
+        label : text
+        value : integer # 0 : false, >0 : true
+
+    ++ a resultComment :
+        lowerBound : integer
+        upperBound : integer
+        comment : text
+        reward : text
+
+    + a player :
+        mailAdress : string
+        nickname : string
+
+    + a creator :
+        user : @symfonyUser #default symfony user. It's a role
+
+    + a participation :
+        player : @player
+        quiz : @quiz
+        playedAt : date
+        playerAnswers : @playerAnswer
+        result : text
+
+    + a playerAnswer :
+        answer : @answer
+
+List of application's actions

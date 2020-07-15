@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiz index{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("css/jquery.dataTables.min.css") }}>
+    <script src={{ asset("js/jquery.min.js") }}></script>
+    <script src={{ asset("js/jquery.dataTables.min.js") }}></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Quiz index</h1>
+
+    <table class="table" id="tableQuiz">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th>Description</th>
+                <th>Picture</th>
+                <th>Author</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quiz in quizzes %}
+            <tr>
+                <td>{{ quiz.id }}</td>
+                <td>{{ quiz.label }}</td>
+                <td>{{ quiz.description }}</td>
+                <td>{{ quiz.picture }}</td>
+                <td>{{ quiz.creator }}</td>
+                <td>
+                    <a href="{{ path('quiz_show', {'id': quiz.id}) }}">show</a>
+                    <a href="{{ path('quiz_edit', {'id': quiz.id}) }}">edit</a>
+                    <a href="{{ path('quiz_questions', {'id': quiz.id}) }}">questions</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('quiz_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    $(document).ready( function() {
+        $("#tableQuiz").DataTable({
+            "stripeClasses": [ 'table-primary', 'table-secondary' ],
+            "language": {
+                "url": "/translation/datatable.en_EN.json"
+            }
+        });
+    });
+</script>
+{% endblock javascripts %}

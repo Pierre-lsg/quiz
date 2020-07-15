@@ -1,0 +1,26 @@
+{% extends 'play_quiz/base.html.twig' %}
+
+{% block title %}Welcome !{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/play.css') }}">
+<style>
+    body {
+        background-image: url("{{ asset('uploads/picture/default.jpeg') }}");
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block body %}
+<div class="container indexQuizFrame">
+    <div class="jumbotron">
+        <h1 class="display-3">Welcome to the quiz game !!!</h1>
+        <hr class="my-4">
+        <h4>Select a quiz and enjoy the moment</h4>
+        <hr class="my-4">
+        {% for quiz in quizzes %}
+            <a href="{{ path('intro_quiz', {'idQuiz': quiz.id}) }}"><h3>{{ quiz.label }}</h3></a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

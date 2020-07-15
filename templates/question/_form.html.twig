@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_row(form.label, {'label': 'Label', 'attr': {'placeholder': 'label', 'autofocus': true}}) }}
+    {{ form_row(form.picture) }}
+    {% if quizId %}
+    {{ form_row(form.quiz, {'attr': {'disabled': 'disabled'}}) }}
+    {% else %}
+    {{ form_row(form.quiz) }}
+    {% endif %}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
