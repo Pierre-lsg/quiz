@@ -7,7 +7,9 @@ use App\Entity\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class QuestionType extends AbstractType
 {
@@ -15,7 +17,21 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add('label')
-            ->add('picture')
+            ->add('picture', FileType::class, [
+                'label' => 'Picture (JPG file)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2048K',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid JPG picture',
+                    ])
+                ],
+            ])
+
             ->add('quiz', EntityType::class, [
                 'class' => Quiz::class,
                 'choice_label' => 'label'

@@ -182,12 +182,7 @@ class PlayQuizController extends AbstractController
         }
 
         /* Max Score */
-        $maxScore = 0;
-        $answers = $answerRepository->findAll();
-        foreach($answers as $answerQuiz)
-        {
-            $maxScore += $answerQuiz->getValue();
-        }
+        $maxScore = $quiz->getQuestions()->count();
 
         /* Result Comment */
         $comment = $resultCommentRepository->findOneByQuizAndScore($quiz, ($score / $maxScore) * 20); 

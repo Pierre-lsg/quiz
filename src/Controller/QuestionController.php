@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\Quiz;
 use App\Entity\Question;
 use App\Form\QuestionType;
-use App\Repository\QuestionRepository;
+use App\Service\FileUploader;
 use App\Repository\QuizRepository;
+use App\Repository\QuestionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,7 +54,7 @@ class QuestionController extends AbstractController
      * @Route("/question/new", name="question_new", methods={"GET","POST"})
      * @Route("/quiz/{idQuiz}/question/new", name="quizQuestion_new", methods={"GET","POST"})
      */
-    public function new(Request $request, $idQuiz = null, QuizRepository $quizRepo): Response
+    public function new(Request $request, $idQuiz = null, QuizRepository $quizRepo, FileUploader $fileUploader): Response
     {
         $question = new Question();
         $form = $this->createForm(QuestionType::class, $question);
@@ -65,6 +66,13 @@ class QuestionController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form->get('picture')->getData();
+
+            if ($pictureFile) {
+                $pictureFileName = $fileUploader->upload($pictureFile);
+                $quiz->setPicture($pictureFileName);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($question);
             $entityManager->flush();
@@ -106,7 +114,7 @@ class QuestionController extends AbstractController
      * @Route("/question/{id}/edit", name="question_edit", methods={"GET","POST"})
      * @Route("/quiz/{idQuiz}/question/{id}/edit", name="quizQuestion_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Question $question, $idQuiz = null, QuizRepository $quizRepo): Response
+    public function edit(Request $request, Question $question, $idQuiz = null, QuizRepository $quizRepo, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
@@ -117,6 +125,13 @@ class QuestionController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form->get('picture')->getData();
+
+            if ($pictureFile) {
+                $pictureFileName = $fileUploader->upload($pictureFile);
+                $quiz->setPicture($pictureFileName);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             if ($idQuiz) {return $this->redirectToRoute('quizQuestion_index', ['idQuiz' => $idQuiz ]);}
