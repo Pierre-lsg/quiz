@@ -70,7 +70,7 @@ class QuestionController extends AbstractController
 
             if ($pictureFile) {
                 $pictureFileName = $fileUploader->upload($pictureFile);
-                $quiz->setPicture($pictureFileName);
+                $question->setPicture($pictureFileName);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -129,7 +129,7 @@ class QuestionController extends AbstractController
 
             if ($pictureFile) {
                 $pictureFileName = $fileUploader->upload($pictureFile);
-                $quiz->setPicture($pictureFileName);
+                $question->setPicture($pictureFileName);
             }
 
             $this->getDoctrine()->getManager()->flush();
